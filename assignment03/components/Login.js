@@ -2,14 +2,15 @@ import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, View, ScrollView, Image,TextInput } from 'react-native';
 import { PaperProvider, Text, Divider, Button } from 'react-native-paper';
 import React, { useState } from 'react';
-import {students} from '../assets/database/StudentsDb (1)'
+import {students} from '../assets/database/StudentsDb (1)';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function Login() {
    const navigation = useNavigation();
    const [username, setUsername] = useState('');
    const [password, setPassword] = useState('');
    const [errorMessage, setErrorMessage] = useState('');
-
+   const [showPassword, setShowPassword] = useState(false);
 
    const validateLogin = () => {
     const user = students.find(
@@ -42,13 +43,23 @@ export default function Login() {
                             onChangeText={(newUser) => setUsername(newUser)} 
                         />
 
+
                     <TextInput
                             style={styles.input}
                             placeholder="Password"
                             placeholderTextColor="#aaa" 
                             value={password} 
                             onChangeText={(newPass) => setPassword(newPass)} 
+                            secureTextEntry={!showPassword}
                         />
+                         <Ionicons
+                            name={showPassword ? "eye-off" : "eye"}
+                            size={24}
+                            color="gray"
+                            style={styles.eyeIcon}
+                            onPress={() => setShowPassword(!showPassword)}
+                        />
+                       
                     </Text>
                     <Button style={styles.button} mode="outlined" onPress = {validateLogin}>Login</Button>
                 </View>
@@ -131,4 +142,9 @@ const styles = StyleSheet.create({
         marginLeft:'2%',
         marginTop:'170px'
       },
+    eyeIcon: {
+        position: 'absolute',
+        right: 50,
+        marginTop:50
+    },
 });

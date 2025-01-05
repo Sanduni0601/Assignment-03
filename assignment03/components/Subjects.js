@@ -72,7 +72,7 @@ export default function Login({ studentData }) {
       <View style={styles.bottomNav}>
         <Button
           mode="text"
-          onPress={() => navigation.navigate('course', { user })}
+          onPress={() => navigation.navigate('profile', { user })}
           style={{ flexDirection: 'column', alignItems: 'center' }}
         >
           <View style={{ alignItems: 'center' }}>
