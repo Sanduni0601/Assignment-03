@@ -21,3 +21,4 @@
 <li>Courses & Subjects Screen: Shows the student's courses and the subjects enrolled in those courses.</li>
 </ul>
 
+There is a output video inside the folder
