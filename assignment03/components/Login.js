@@ -31,7 +31,7 @@ export default function Login() {
                             onChangeText={(newText) => setText(newText)} 
                         />
                     </Text>
-                    <Button style={styles.button}mode="outlined" onPress={() => navigation.popTo('')}>Login</Button>
+                    <Button style={styles.button} mode="outlined" onPress={() => navigation.popTo('profile')}>Login</Button>
                 </View>
 
                 <View style={styles.horizontalBar} />
