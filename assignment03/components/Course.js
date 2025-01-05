@@ -6,8 +6,10 @@ import { IoPersonOutline } from "react-icons/io5";
 import { GiGraduateCap } from "react-icons/gi";
 import { RiProfileLine } from "react-icons/ri";
 
+
 export default function Login() {
    const navigation = useNavigation();
+
     return (
         <PaperProvider>
             <ScrollView contentContainerStyle={styles.scrollView}>
@@ -16,33 +18,20 @@ export default function Login() {
                         <Image source={require('../assets/uovlogo.png')} style={styles.image}/>
                     </View>
                     <Text variant="bodyMedium" style={styles.body}>
-                    <View style={styles.profileImageContainer}>
-          <Image 
-            source={require('../assets/profilepic/17.jpg')}
-            style={styles.profileImage}
-          />
-        </View>
+                    <View style={styles.div}>
+                        <Text style={styles.cname}>Computer Science</Text>
+                        <Text style={styles.det}>Code: CS101 | Dept: Eng</Text>
+                    </View>
+                    <Divider/>
+                    <View style={styles.div1}>
+                        <Text style={styles.info}>Course Information</Text>
+                        <Text style={{color:'black',fontSize:12,marginTop:15}}>Code:</Text>
+                        <Text style={{color:'black',fontSize:12,marginTop:5}}>Department:</Text>
+                        <Text style={{color:'black',fontSize:12,marginTop:5}}>Duration:</Text>
+                        <Text style={{color:'black',fontSize:12,marginTop:5}}>Description:</Text>
+                    </View>
         
-        
-        <View style={styles.NameSection}>
-        <Text style={styles.name}>Alice Johnson</Text>
-        <Text style={styles.info}>Age: 21 | Gender: Female</Text>
-        </View>
-        <Divider/>
-        <View style={styles.contactSection}>
-          <Text style={styles.sectionTitle}>Contact Information</Text>
-          <Text style={{color:'black'}}>Email: alice.johnson@example.com</Text>
-          <Text style={{color:'black'}}>Phone: 555-123-4567</Text>
-          <Text style={{color:'black'}}>Address: 123 Maple Street, Springfield</Text>
-        </View>
-
-        <View style={styles.biologicalInfoSection}>
-          <Text style={styles.sectionTitle}>Biological Information</Text>
-          <Text style={{color:'black'}}>Gender: Female</Text>
-          <Text style={{color:'black'}}>Age: 21</Text>
-          <Text style={{color:'black'}}>Blood Group: O+</Text>
-        </View>
-                    </Text>
+    </Text>
                 </View>
 
                 
@@ -97,51 +86,20 @@ const styles = StyleSheet.create({
         padding: 8,
          alignItems: 'center',
         flex: 2,
-        marginBottom: 5
+        marginBottom: 15
     },
     image:{
-        width: '80%',
-        height: 70,
+        width: '100%',
+        height: 100,
     },
-    body: {
-        padding: 8,
-        textAlign: 'justify',
-        flex: 6,
-       backgroundColor:'#ffffff',
-       height:'100%'
-    },
+    
     scrollView: {
         flexGrow: 1, // Ensures the ScrollView behaves correctly
     },
-    footer: {
-        flex: 2,
-        width: "100%",
-        alignItems: 'center',
-        marginTop:10
-    },
-    h1: {
-        fontSize: 35, // Large font size
-        fontWeight: 'bold', // Bold text
-        color: '#000',
-        marginTop:80,
-        textAlign:'center'
-      },
-      input:
-      {height: 40,
-      width: '80%',
-      borderColor: '#ccc',
-      borderWidth: 1,
-      borderRadius: 5,
-      paddingHorizontal: 10,
-      fontSize: 16,
-      marginTop: '10%',
-      marginLeft:'10%'},
-    
-    button:{
-        backgroundColor:'#4B0150',
-        width:'80%',
-        marginLeft:'10%',
-        marginTop:'8%'
+    cname:{
+        fontSize:32,
+        color:'black',
+        marginLeft:60
     },
     horizontalBar: {
         width: '96%', 
@@ -159,52 +117,20 @@ const styles = StyleSheet.create({
         borderTopWidth: 1,
         borderTopColor: '#ccc',
       },
-      profileContainer: {
-        padding: 20,
-        flex: 1,
+      det:{
+        color:'black',
+        fontSize:12,
+        marginLeft:'43%',
+        marginTop:25
       },
-      profileImageContainer: {
-        alignItems: 'center',
-        marginBottom: 20,
+      div1:{
+        marginLeft:20,
+        marginTop:35
+      },
+      info:{
+        marginLeft:20,
+        marginTop:35,
         color:'black'
-      },
-      profileImage: {
-        width: 100,
-        height: 100,
-        borderRadius: 5,
-        marginLeft:150
-      },
-      name: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginBottom: 10,
-        color:'black',
-        marginLeft:120
-      },
-      info: {
-        fontSize: 12,
-        textAlign: 'center',
-        marginBottom: 20,
-        color:'black', 
-        marginLeft:120 
-      },
-      contactSection: {
-        marginBottom: 20,
-        color:'black',
-        marginTop:20,
-        marginLeft:20
-      },
-      biologicalInfoSection: {
-        marginBottom: 20,
-        color:'black',
-        marginTop:40,
-        marginLeft:20
-      },
-      sectionTitle: {
-        fontSize: 15,
-        fontWeight: 'bold',
-        marginBottom: 10,
-        color:'black'
-      },
+      }
+      
 });
