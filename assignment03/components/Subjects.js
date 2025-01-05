@@ -1,55 +1,35 @@
 import React from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation,useRoute } from '@react-navigation/native';
 import { StyleSheet, View, ScrollView, Image } from 'react-native';
 import { PaperProvider, Text, Button } from 'react-native-paper';
 import { IoPersonOutline } from "react-icons/io5";
 import { GiGraduateCap } from "react-icons/gi";
 import { RiProfileLine } from "react-icons/ri";
+import { courses, subjects, marks } from '../assets/database/StudentsDb (1)';
 
-
-const MarksCard = () => {
-  const subjects = [
-    { name: 'Data Structures', mark: 85 },
-    { name: 'Algorithms', mark: 90 },
-    { name: 'Database Systems', mark: 88 },
-  ];
-
-  const averageMark =
-    subjects.reduce((total, subject) => total + subject.mark, 0) /
-    subjects.length;
-
-  return (
-    <View style={styles.card}>
-      <Text style={styles.title}>Computer Science</Text>
-      <Text style={styles.subtitle}>
-        {subjects.length} Subjects | Average: {averageMark.toFixed(2)}
-      </Text>
-      <View style={styles.divider} />
-      <Text style={styles.sectionTitle}>Marks Information</Text>
-      <View style={styles.table}>
-        <View style={styles.tableHeader}>
-          <Text style={styles.tableHeaderText}>Subject</Text>
-          <Text style={styles.tableHeaderText}>Mark</Text>
-        </View>
-        {subjects.map((subject, index) => (
-          <View
-            key={index}
-            style={[
-              styles.tableRow,
-              index % 2 === 0 && styles.tableRowAlternate,
-            ]}
-          >
-            <Text style={styles.tableCell}>{subject.name}</Text>
-            <Text style={styles.tableCell}>{subject.mark}</Text>
-          </View>
-        ))}
-      </View>
-    </View>
-  );
-};
-
-export default function Login() {
+export default function Login({ studentData }) {
   const navigation = useNavigation();
+  const route = useRoute();
+     const { user } = route.params || {};
+  
+     const course = courses.find(course => course.id === user.course_id)
+  const courseSubjects = subjects.filter(subject => subject.course_id === course.id);
+
+  // Get the marks of the student
+  const studentMarks = marks.filter(mark => mark.student_id === user.id);
+
+  // Calculate total and average marks
+  const totalMarks = studentMarks.reduce((acc, mark) => acc + mark.marks, 0);
+  const averageMarks = studentMarks.length > 0 ? (totalMarks / studentMarks.length).toFixed(0) : 0;
+
+  // Map subjects with corresponding marks
+  const subjectsWithMarks = courseSubjects.map(subject => {
+    const mark = studentMarks.find(m => m.subject_id === subject.id);
+    return {
+      subjectName: subject.name,
+      marks: mark ? mark.marks : 0,
+    };
+  });
 
   return (
     <PaperProvider>
@@ -58,44 +38,68 @@ export default function Login() {
           <View style={styles.imagepad}>
             <Image source={require('../assets/uovlogo.png')} style={styles.image} />
           </View>
-          <MarksCard />
+
+          <View style={styles.card}>
+            <Text style={styles.title}>{course ? course.name : 'Unknown Course'}</Text>
+            <Text style={styles.subtitle}>
+              {courseSubjects.length} Subjects | Average: {averageMarks}
+            </Text>
+            <View style={styles.divider} />
+            <Text style={styles.sectionTitle}>Marks Information</Text>
+            <View style={styles.table}>
+              <View style={styles.tableHeader}>
+                <Text style={styles.tableHeaderText}>Subject</Text>
+                <Text style={styles.tableHeaderText}>Mark</Text>
+              </View>
+              {subjectsWithMarks.map((subject, index) => (
+                <View
+                  key={index}
+                  style={[styles.tableRow, index % 2 === 0 && styles.tableRowAlternate]}
+                >
+                  <Text style={styles.tableCell}>{subject.subjectName}</Text>
+                  <Text style={styles.tableCell}>{subject.marks}</Text>
+                </View>
+              ))}
+            </View>
+          </View>
         </View>
+
         <View style={styles.horizontalBar}>
           <Text style={{ color: '#ffffff', marginLeft: '35%' }}>UoV@2024</Text>
         </View>
       </ScrollView>
-    
-         <View style={styles.bottomNav}>
-                    <Button
-                        mode="text"
-                        onPress={() => navigation.popTo('profile')}
-                        style={{ flexDirection: 'column', alignItems: 'center' }} 
-                        >
-              <View style={{ alignItems: 'center' }}>
-                <IoPersonOutline size={20} color='#4B0082' /> 
-                <Text style={{ color: '#4B0082' }}>Profile</Text> 
-              </View>
-            </Button>
-            <Button
-                        mode="text"
-                        onPress={() => navigation.popTo('course')}
-                        style={{ flexDirection: 'column', alignItems: 'center' }} 
-                        >
-              <View style={{ alignItems: 'center' }}>
-                <GiGraduateCap size={20} color="purple" /> 
-                <Text style={{ color: '#4B0082' }}>Course</Text> 
-              </View>
-            </Button>
-            <Button
-                        mode="text"
-                        onPress={() => navigation.popTo('subjects')}
-                        style={{ flexDirection: 'column', alignItems: 'center' }} 
-                        >
-              <View style={{ alignItems: 'center' }}>
-                <RiProfileLine size={20} color="purple" /> 
-                <Text style={{ color: '#4B0082' }}>Subjects</Text> 
-              </View>
-            </Button>
+
+      <View style={styles.bottomNav}>
+        <Button
+          mode="text"
+          onPress={() => navigation.navigate('course', { user })}
+          style={{ flexDirection: 'column', alignItems: 'center' }}
+        >
+          <View style={{ alignItems: 'center' }}>
+            <IoPersonOutline size={20} color='#4B0082' />
+            <Text style={{ color: '#4B0082' }}>Profile</Text>
+          </View>
+        </Button>
+        <Button
+          mode="text"
+          onPress={() => navigation.navigate('course', { user })}
+          style={{ flexDirection: 'column', alignItems: 'center' }}
+        >
+          <View style={{ alignItems: 'center' }}>
+            <GiGraduateCap size={20} color="purple" />
+            <Text style={{ color: '#4B0082' }}>Course</Text>
+          </View>
+        </Button>
+        <Button
+          mode="text"
+          onPress={() => navigation.navigate('subjects', { user })}
+          style={{ flexDirection: 'column', alignItems: 'center' }}
+        >
+          <View style={{ alignItems: 'center' }}>
+            <RiProfileLine size={20} color="purple" />
+            <Text style={{ color: '#4B0082' }}>Subjects</Text>
+          </View>
+        </Button>
       </View>
     </PaperProvider>
   );

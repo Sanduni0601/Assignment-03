@@ -18,6 +18,7 @@ export default function Login() {
 
     if (user) {
         navigation.navigate('profile', { user }); 
+
         setErrorMessage('')
     } else {
         setErrorMessage('Invalid Username or Password');
