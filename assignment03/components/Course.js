@@ -1,14 +1,18 @@
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation,useRoute } from '@react-navigation/native';
 import { StyleSheet, View, ScrollView, Image,TextInput } from 'react-native';
 import { PaperProvider, Text, Divider, Button } from 'react-native-paper';
 import React, { useState } from 'react';
 import { IoPersonOutline } from "react-icons/io5";
 import { GiGraduateCap } from "react-icons/gi";
 import { RiProfileLine } from "react-icons/ri";
+import {courses} from '../assets/database/StudentsDb (1)';
 
-
-export default function Login() {
+export default function Course() {
    const navigation = useNavigation();
+   const route = useRoute();
+   const { user } = route.params || {};
+
+   const course = courses.find(course => course.id === user.course_id);
 
     return (
         <PaperProvider>
@@ -17,21 +21,22 @@ export default function Login() {
                     <View style={styles.imagepad}>
                         <Image source={require('../assets/uovlogo.png')} style={styles.image}/>
                     </View>
-                    <Text variant="bodyMedium" style={styles.body}>
-                    <View style={styles.div}>
-                        <Text style={styles.cname}>Computer Science</Text>
-                        <Text style={styles.det}>Code: CS101 | Dept: Eng</Text>
+                    
+                      
+                    <View style={styles.div2}>
+                        <Text style={styles.cname}>{course.name || 'Course not found'}</Text>
+                        <Text style={styles.det}>Code: {course.id} | Dept: {course.department}</Text>
                     </View>
                     <Divider/>
                     <View style={styles.div1}>
                         <Text style={styles.info}>Course Information</Text>
-                        <Text style={{color:'black',fontSize:12,marginTop:15}}>Code:</Text>
-                        <Text style={{color:'black',fontSize:12,marginTop:5}}>Department:</Text>
-                        <Text style={{color:'black',fontSize:12,marginTop:5}}>Duration:</Text>
-                        <Text style={{color:'black',fontSize:12,marginTop:5}}>Description:</Text>
+                        <Text style={{color:'black',fontSize:12,marginTop:15}}>Code: {course.course_code}</Text>
+                        <Text style={{color:'black',fontSize:12,marginTop:5}}>Department:{course.department}</Text>
+                        <Text style={{color:'black',fontSize:12,marginTop:5}}>Duration:{course.duration}</Text>
+                        <Text style={{color:'black',fontSize:12,marginTop:5}}>Description:{course.description}</Text>
                     </View>
         
-    </Text>
+    
                 </View>
 
                 

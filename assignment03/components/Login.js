@@ -2,10 +2,28 @@ import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, View, ScrollView, Image,TextInput } from 'react-native';
 import { PaperProvider, Text, Divider, Button } from 'react-native-paper';
 import React, { useState } from 'react';
+import {students} from '../assets/database/StudentsDb (1)'
 
 export default function Login() {
    const navigation = useNavigation();
-   const [text,setText] = useState('');
+   const [username, setUsername] = useState('');
+   const [password, setPassword] = useState('');
+   const [errorMessage, setErrorMessage] = useState('');
+
+
+   const validateLogin = () => {
+    const user = students.find(
+        (student) => student.username === username && student.password === password
+    );
+
+    if (user) {
+        navigation.navigate('profile', { user }); 
+        setErrorMessage('')
+    } else {
+        setErrorMessage('Invalid Username or Password');
+    }
+};
+
     return (
         <PaperProvider>
             <ScrollView contentContainerStyle={styles.scrollView}>
@@ -19,20 +37,23 @@ export default function Login() {
                             style={styles.input}
                             placeholder="Username"
                             placeholderTextColor="#aaa" 
-                            value={text} 
-                            onChangeText={(newText) => setText(newText)} 
+                            value={username} 
+                            onChangeText={(newUser) => setUsername(newUser)} 
                         />
 
                     <TextInput
                             style={styles.input}
                             placeholder="Password"
                             placeholderTextColor="#aaa" 
-                            value={text} 
-                            onChangeText={(newText) => setText(newText)} 
+                            value={password} 
+                            onChangeText={(newPass) => setPassword(newPass)} 
                         />
                     </Text>
-                    <Button style={styles.button} mode="outlined" onPress={() => navigation.popTo('profile')}>Login</Button>
+                    <Button style={styles.button} mode="outlined" onPress = {validateLogin}>Login</Button>
                 </View>
+                {errorMessage ? (
+                    <Text style={styles.errorText}>{errorMessage}</Text>
+                ) : null}
 
                 <View style={styles.horizontalBar} />
             </ScrollView>
@@ -61,8 +82,15 @@ const styles = StyleSheet.create({
         textAlign: 'justify',
         flex: 6,
     },
+    errorText: {
+        color: 'red',
+        fontSize: 14,
+        textAlign: 'center',
+        marginTop: 10,
+    },
+    
     scrollView: {
-        flexGrow: 1, // Ensures the ScrollView behaves correctly
+        flexGrow: 1, 
     },
     footer: {
         flex: 2,

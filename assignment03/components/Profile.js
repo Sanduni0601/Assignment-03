@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation ,useRoute} from '@react-navigation/native';
 import { StyleSheet, View, ScrollView, Image,TextInput } from 'react-native';
 import { PaperProvider, Text, Divider, Button } from 'react-native-paper';
 import React, { useState } from 'react';
@@ -8,6 +8,9 @@ import { RiProfileLine } from "react-icons/ri";
 
 export default function Login() {
    const navigation = useNavigation();
+   const route = useRoute();
+   const user = route.params?.user;
+
     return (
         <PaperProvider>
             <ScrollView contentContainerStyle={styles.scrollView}>
@@ -18,29 +21,29 @@ export default function Login() {
                     <Text variant="bodyMedium" style={styles.body}>
                     <View style={styles.profileImageContainer}>
           <Image 
-            source={require('../assets/profilepic/17.jpg')}
+            source={user?.profile_pic}
             style={styles.profileImage}
           />
         </View>
         
         
         <View style={styles.NameSection}>
-        <Text style={styles.name}>Alice Johnson</Text>
-        <Text style={styles.info}>Age: 21 | Gender: Female</Text>
+        <Text style={styles.name}>{user?.name}</Text>
+        <Text style={styles.info}>Age: {user?.age} | Gender: {user?.gender}</Text>
         </View>
         <Divider/>
         <View style={styles.contactSection}>
           <Text style={styles.sectionTitle}>Contact Information</Text>
-          <Text style={{color:'black'}}>Email: alice.johnson@example.com</Text>
-          <Text style={{color:'black'}}>Phone: 555-123-4567</Text>
-          <Text style={{color:'black'}}>Address: 123 Maple Street, Springfield</Text>
+          <Text style={{color:'black'}}>Email: {user?.email}</Text>
+          <Text style={{color:'black'}}>Phone: {user?.phone}</Text>
+          <Text style={{color:'black'}}>Address: {user?.address}</Text>
         </View>
 
         <View style={styles.biologicalInfoSection}>
           <Text style={styles.sectionTitle}>Biological Information</Text>
-          <Text style={{color:'black'}}>Gender: Female</Text>
-          <Text style={{color:'black'}}>Age: 21</Text>
-          <Text style={{color:'black'}}>Blood Group: O+</Text>
+          <Text style={{color:'black'}}>Gender: {user?.gender}</Text>
+          <Text style={{color:'black'}}>Age: {user?.age}</Text>
+          <Text style={{color:'black'}}>Blood Group: {user?.blood_group}</Text>
         </View>
                     </Text>
                 </View>
@@ -53,7 +56,7 @@ export default function Login() {
             <View style={styles.bottomNav}>
             <Button
                 mode="text"
-                onPress={() => navigation.popTo('profile')}
+                onPress={() => navigation.navigate('profile', { user })}
                 style={{ flexDirection: 'column', alignItems: 'center' }} 
                 >
       <View style={{ alignItems: 'center' }}>
@@ -63,7 +66,7 @@ export default function Login() {
     </Button>
     <Button
                 mode="text"
-                onPress={() => navigation.popTo('course')}
+                onPress={() => navigation.navigate('course', { user })}
                 style={{ flexDirection: 'column', alignItems: 'center' }} 
                 >
       <View style={{ alignItems: 'center' }}>
@@ -73,7 +76,7 @@ export default function Login() {
     </Button>
     <Button
                 mode="text"
-                onPress={() => navigation.popTo('subjects')}
+                onPress={() => navigation.navigate('subjects', { user })}
                 style={{ flexDirection: 'column', alignItems: 'center' }} 
                 >
       <View style={{ alignItems: 'center' }}>
