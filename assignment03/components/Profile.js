@@ -53,38 +53,6 @@ export default function Login() {
          <Text style = {{color:'#ffffff', marginLeft:'35%'}}>UoV@2024</Text>
         </View>
             </ScrollView>
-            <View style={styles.bottomNav}>
-            <Button
-                mode="text"
-                onPress={() => navigation.navigate('profile', { user })}
-                style={{ flexDirection: 'column', alignItems: 'center' }} 
-                >
-      <View style={{ alignItems: 'center' }}>
-        <IoPersonOutline size={20} color='#4B0082' /> 
-        <Text style={{ color: '#4B0082' }}>Profile</Text> 
-      </View>
-    </Button>
-    <Button
-                mode="text"
-                onPress={() => navigation.navigate('course', { user })}
-                style={{ flexDirection: 'column', alignItems: 'center' }} 
-                >
-      <View style={{ alignItems: 'center' }}>
-        <GiGraduateCap size={20} color="purple" /> 
-        <Text style={{ color: '#4B0082' }}>Course</Text> 
-      </View>
-    </Button>
-    <Button
-                mode="text"
-                onPress={() => navigation.navigate('subjects', { user })}
-                style={{ flexDirection: 'column', alignItems: 'center' }} 
-                >
-      <View style={{ alignItems: 'center' }}>
-        <RiProfileLine size={20} color="purple" /> 
-        <Text style={{ color: '#4B0082' }}>Subjects</Text> 
-      </View>
-    </Button>
-      </View>
         </PaperProvider>
     );
 }

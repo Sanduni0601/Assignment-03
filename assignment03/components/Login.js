@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import {students} from '../assets/database/StudentsDb (1)';
 import { Ionicons } from '@expo/vector-icons';
 
+
 export default function Login() {
    const navigation = useNavigation();
    const [username, setUsername] = useState('');
@@ -18,7 +19,7 @@ export default function Login() {
     );
 
     if (user) {
-        navigation.navigate('profile', { user }); 
+        navigation.navigate('bottom', { user }); 
 
         setErrorMessage('')
     } else {

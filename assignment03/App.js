@@ -1,10 +1,11 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import Profile from './components/Profile'
-import Login from './components/Login';
-import Course from './components/Course';
-import Subjects from './components/Subjects';
+//import Profile from './components/Profile'
+ import Login from './components/Login';
+ import Bottom from './components/Bottom';
+// import Course from './components/Course';
+// import Subjects from './components/Subjects';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -24,21 +25,12 @@ export default function App() {
       color: '#FFFFFF',
       fontSize: 28, 
     },}} />
-    <Stack.Screen name='profile' component={Profile} options={{ title: "UoV Student Care" ,headerTitleAlign: 'center',headerTitleStyle: {
+    <Stack.Screen name='bottom' component={Bottom} options={{ title: "UoV Student Care" ,headerTitleAlign: 'center',headerTitleStyle: {
       fontWeight: 'bold', 
       color: '#FFFFFF',
       fontSize: 28, 
     },}} />
-    <Stack.Screen name='course' component={Course} options={{ title: "UoV Student Care" ,headerTitleAlign: 'center',headerTitleStyle: {
-      fontWeight: 'bold', 
-      color: '#FFFFFF',
-      fontSize: 28, 
-    },}} />
-          <Stack.Screen name='subjects' component={Subjects} options={{ title: "UoV Student Care" ,headerTitleAlign: 'center',headerTitleStyle: {
-      fontWeight: 'bold', 
-      color: '#FFFFFF',
-      fontSize: 28, 
-    },}} />
+   
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
